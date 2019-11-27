@@ -49,16 +49,16 @@ const Detail = ({
     });
     if (loading)
         return (
-            <React.Fragment>
+            <>
                 <Helmet>
                     <title>Loading | MovieQL</title>
                 </Helmet>
                 loading
-      </React.Fragment>
+      </>
         );
     if (error) return "error";
     return (
-        <React.Fragment>
+        <>
             <Container>
                 <Helmet>
                     <title>{data.movie.title} | MovieQL</title>
@@ -82,7 +82,7 @@ const Detail = ({
                     />
                 ))}
             </MovieContainer>
-        </React.Fragment>
+        </>
     );
 };
 
