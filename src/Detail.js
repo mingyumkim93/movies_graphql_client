@@ -39,50 +39,51 @@ const MovieContainer = styled.div`
 `;
 
 const Detail = ({
-  match: {
-    params: { movieId }
-  }
+    match: {
+        params: { movieId }
+    }
 }) => {
-  const { loading, error, data } = useQuery(MOVIE_DETAILS, {
-    variables: { movieId }
-  });
-  if (loading)
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>Loading | MovieQL</title>
-        </Helmet>
-        loading
+    movieId = parseInt(movieId);
+    const { loading, error, data } = useQuery(MOVIE_DETAILS, {
+        variables: { movieId }
+    });
+    if (loading)
+        return (
+            <React.Fragment>
+                <Helmet>
+                    <title>Loading | MovieQL</title>
+                </Helmet>
+                loading
       </React.Fragment>
+        );
+    if (error) return "error";
+    return (
+        <React.Fragment>
+            <Container>
+                <Helmet>
+                    <title>{data.movie.title} | MovieQL</title>
+                </Helmet>
+                <Image src={data.movie.medium_cover_image} />
+                <span>
+                    <Title>{data.movie.title}</Title>
+                    <Paragraph bold>Rating: {data.movie.rating}</Paragraph>
+                    <Paragraph>{data.movie.description_intro}</Paragraph>
+                </span>
+            </Container>
+            <Title>Suggested</Title>
+            <MovieContainer>
+                {data.suggestions.map(movie => (
+                    <Movie
+                        key={movie.id}
+                        id={movie.id}
+                        title={movie.title}
+                        rating={movie.rating}
+                        poster={movie.medium_cover_image}
+                    />
+                ))}
+            </MovieContainer>
+        </React.Fragment>
     );
-  if (error) return "error";
-  return (
-    <React.Fragment>
-      <Container>
-        <Helmet>
-          <title>{data.movie.title} | MovieQL</title>
-        </Helmet>
-        <Image src={data.movie.medium_cover_image} />
-        <span>
-          <Title>{data.movie.title}</Title>
-          <Paragraph bold>Rating: {data.movie.rating}</Paragraph>
-          <Paragraph>{data.movie.description_intro}</Paragraph>
-        </span>
-      </Container>
-      <Title>Suggested</Title>
-      <MovieContainer>
-        {data.suggestions.map(movie => (
-          <Movie
-            key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            rating={movie.rating}
-            poster={movie.medium_cover_image}
-          />
-        ))}
-      </MovieContainer>
-    </React.Fragment>
-  );
 };
 
 export default Detail;

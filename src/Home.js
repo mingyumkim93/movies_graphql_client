@@ -32,6 +32,7 @@ const Home = () => {
               title={movie.title}
               rating={movie.rating}
             />
+            
           ))}
       </Container>
     );
