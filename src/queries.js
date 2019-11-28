@@ -2,7 +2,8 @@ import gql from "graphql-tag";
 
 export const HOME_PAGE = gql`
   {
-    movies(limit: 50, rating: 9) {
+    #movies(limit: 50, rating: 9) {
+    movies {
       id
       title
       rating
