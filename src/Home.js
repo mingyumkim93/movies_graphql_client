@@ -4,6 +4,7 @@ import Movie from "./Movie";
 import { useQuery } from "react-apollo-hooks";
 import { HOME_PAGE } from "./queries";
 import { Helmet } from "react-helmet";
+import { CodeGenerator } from "@babel/generator";
 
 const Container = styled.div`
   display: grid;
@@ -14,6 +15,7 @@ const Container = styled.div`
 
 const Home = () => {
     const { data, error, loading } = useQuery(HOME_PAGE);
+    if(data) console.log(data)
     return (
       <Container>
         <Helmet>
